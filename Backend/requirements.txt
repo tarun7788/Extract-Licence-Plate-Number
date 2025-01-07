@@ -3,7 +3,7 @@ uvicorn
 opencv-python-headless
 numpy
 pillow
-easyocr
-pytesseract
+paddlepaddle
+paddleocr
 ultralytics
 python-multipart
