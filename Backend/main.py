@@ -41,6 +41,12 @@ executor = ThreadPoolExecutor(max_workers=4)
 MIN_CONFIDENCE = 0.7
 # MIN_AREA = 600
 
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the License Plate Extraction API"}
+
+
 @app.post("/extract-number-plate/")
 async def extract_number_plate(file: UploadFile = File(...)):
     if not file.content_type.startswith("image/"):
