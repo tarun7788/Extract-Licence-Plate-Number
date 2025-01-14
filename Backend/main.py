@@ -56,32 +56,32 @@ async def extract_number_plate(file: UploadFile = File(...)):
     img = Image.open(BytesIO(img))
     img = np.array(img)
     
-    try:
-        results = model.predict(source=img, save=False)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error during YOLO inference: {str(e)}")
+    # try:
+    #     results = model.predict(source=img, save=False)
+    # except Exception as e:
+    #     raise HTTPException(status_code=500, detail=f"Error during YOLO inference: {str(e)}")
     
-    detected_plates = []
-    for r in results:
-        for box in r.boxes:
-            # Extract box coordinates, confidence, and class
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
-            conf = float(box.conf[0])
-            cls = int(box.cls[0])
+    # detected_plates = []
+    # for r in results:
+    #     for box in r.boxes:
+    #         # Extract box coordinates, confidence, and class
+    #         x1, y1, x2, y2 = map(int, box.xyxy[0])
+    #         conf = float(box.conf[0])
+    #         cls = int(box.cls[0])
             
-            # Debugging logs
-            print(f"Box coordinates: {x1, y1, x2, y2}, Confidence: {conf}, Class: {cls}")
+    #         # Debugging logs
+    #         print(f"Box coordinates: {x1, y1, x2, y2}, Confidence: {conf}, Class: {cls}")
             
-            # Ensure confidence and class are valid
-            if cls == (0 or 11) and conf > MIN_CONFIDENCE:
-                detected_plates.append((x1, y1, x2, y2))
+    #         # Ensure confidence and class are valid
+    #         if cls == (0 or 11) and conf > MIN_CONFIDENCE:
+    #             detected_plates.append((x1, y1, x2, y2))
 
-    if not detected_plates:
-        raise HTTPException(status_code=404, detail="No number plate found in the image.")
+    # if not detected_plates:
+    #     raise HTTPException(status_code=404, detail="No number plate found in the image.")
     
-    # Process the first detected plate (or modify to process all plates if needed)
-    x1, y1, x2, y2 = detected_plates[0]
-    extracted_text = textExtract(img, x1, y1, x2, y2)
+    # # Process the first detected plate (or modify to process all plates if needed)
+    # x1, y1, x2, y2 = detected_plates[0]
+    extracted_text = textExtract(img)
 
     if not extracted_text:
         return JSONResponse(content={"error": "Failed to extract text from the image"}, status_code=400)

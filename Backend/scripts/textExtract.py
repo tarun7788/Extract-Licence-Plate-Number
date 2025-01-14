@@ -76,9 +76,9 @@ number_to_alphabet = {
     '9': 'P'
 }
 
-def textExtract(img, x1, y1, x2, y2):
+def textExtract(img):
     # Crop the region of interest (ROI)
-    img = img[y1:y2, x1:x2]
+    # img = img[y1:y2, x1:x2]
     cv2.imwrite(f"cv/cropped_plate_0.jpg", img)
 
     # Convert to grayscale and apply thresholding
