@@ -2,14 +2,18 @@ name: Ping HuggingFace API Daily
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # every day at 6 AM UTC
-  workflow_dispatch:  # Allows manual triggering from GitHub Actions tab
+    - cron: '0 6 * * *'  # Runs every day at 6 AM UTC
+  workflow_dispatch:  # Optional: lets you run manually
 
 jobs:
   ping-api:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download dummy image
+        run: |
+          curl -o dummy.jpg https://via.placeholder.com/150
+
       - name: Ping Hugging Face API
         run: |
           curl -X POST https://tarun77-licenceplatefastapi.hf.space/extract-number-plate/ \
