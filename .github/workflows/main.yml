@@ -1,0 +1,17 @@
+name: Ping HuggingFace API Daily
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # every day at 6 AM UTC
+  workflow_dispatch:  # Allows manual triggering from GitHub Actions tab
+
+jobs:
+  ping-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Hugging Face API
+        run: |
+          curl -X POST https://tarun77-licenceplatefastapi.hf.space/extract-number-plate/ \
+          -H "Authorization: Bearer ${{ secrets.HF_TOKEN }}" \
+          -F "file=@dummy.jpg;type=image/jpeg"
