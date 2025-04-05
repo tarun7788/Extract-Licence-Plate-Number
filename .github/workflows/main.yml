@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: Download dummy image
         run: |
-          curl -o dummy.jpg https://via.placeholder.com/150
+         curl -o dummy.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Delete_key1.jpg/120px-Delete_key1.jpg
+
 
       - name: Ping Hugging Face API
         run: |
